@@ -17,8 +17,19 @@ const particlesOptions = {
     }
   }
 };
+const API_KEY = `${process.env.REACT_APP_API_KEY_CLARIFAI}`;
 
 class App extends Component {
+  state = {
+    input: ''
+  };
+
+  handleInputChange = e => {
+    console.log(e.target.value);
+  };
+  handleButtonSubmit = () => {
+    console.log('click');
+  };
   render() {
     return (
       <div className="App">
@@ -26,7 +37,10 @@ class App extends Component {
         <Navigation />
         <Logo />
         <Rank />
-        <ImageLinkForm />
+        <ImageLinkForm
+          onInputChange={this.handleInputChange}
+          onButtonSubmit={this.handleButtonSubmit}
+        />
       </div>
     );
   }
