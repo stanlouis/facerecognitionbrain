@@ -5,6 +5,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Rank from './components/Rank/Rank';
 import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import Logo from './components/Logo/Logo';
 import Particles from 'react-particles-js';
 import './App.css';
@@ -81,10 +82,9 @@ class App extends Component {
       <div className="App">
         <Particles params={particlesOptions} className="particles" />
         <Navigation onRouteChange={this.onRouteChange}/>
-        {this.state.route === 'signin' ? (
-          <Signin onRouteChange={this.onRouteChange} />
-        ) : (
-          <div>
+
+        { this.state.route === 'home'
+        ? <div>
             <Logo />
             <Rank />
             <ImageLinkForm
@@ -96,9 +96,14 @@ class App extends Component {
               box={this.state.box}
             />
           </div>
-        )}
-      </div>
+        : ( this.state.route === 'signin' 
+            ? <Signin onRouteChange={this.onRouteChange} /> 
+            : <Register onRouteChange={this.onRouteChange} />
+          )
+        }
+        </div>
     );
+    
   }
 }
 
