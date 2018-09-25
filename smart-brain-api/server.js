@@ -64,9 +64,20 @@ app.get('/profile/:id', (req, res) => {
       return res.json(user);
     }
   });
-  if (!found) {
-    res.status(400).json('No found');
-  }
+  if (!found) res.status(400).json('No found');
+});
+
+app.put('/image', (req, res) => {
+  const { id } = req.body;
+  let found = false;
+  database.users.forEach(user => {
+    if (user.id === id) {
+      found = true;
+      user.entries++;
+      return res.json(user.entries);
+    }
+  });
+  if (!found) res.status(404).json('not found');
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
