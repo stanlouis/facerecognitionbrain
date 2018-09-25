@@ -1,11 +1,11 @@
 const express = require('express');
-
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
 // for json parsing
 app.use(express.json());
-
+app.use(cors());
 const database = {
   users: [
     {
