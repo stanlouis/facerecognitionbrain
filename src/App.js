@@ -85,11 +85,25 @@ class App extends Component {
     });
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-      .then(response =>
-        this.displayFaceBox(this.calculateFaceLocation(response)).catch(err =>
-          console.log(err)
-        )
-      );
+      .then(response => {
+        if (response) {
+          fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+            .then(response => response.json())
+            .then(count => {
+              this.setState({
+                user: Object.assign(this.state.user, { entries: count })
+              });
+            });
+        }
+        this.displayFaceBox(this.calculateFaceLocation(response));
+      })
+      .catch(err => console.log(err));
   };
   onRouteChange = route => {
     if (route === 'signout') {
