@@ -1,7 +1,19 @@
 const express = require('express');
 const cors = require('cors');
+const knex = require('knex');
 const app = express();
 const port = process.env.PORT || 3000;
+
+const postgres = knex({
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    user: 'stan',
+    password: '',
+    database: 'smart-brain'
+  }
+});
+
 
 // for json parsing
 app.use(express.json());
